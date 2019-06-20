@@ -1,22 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImageGalleryComponent } from './image-gallery/image-gallery.component';
-import { ImageCardComponent } from './image-gallery/image-card/image-card.component';
+import { ImgSliderModule } from './img-slider/img-slider.module';
+import { ImageGalleryModule } from './image-gallery/image-gallery.module';
+import { ContentProjectionModule } from './content-projection/content-projection.module';
+import { AuthService } from './auth.service';
+import { GalleryConfig } from './image-gallery/token';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ImageGalleryComponent,
-    ImageCardComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    ImgSliderModule,
+    ImageGalleryModule,
+    ContentProjectionModule
   ],
-  providers: [],
+  // providers: [AuthService],
+  providers: [
+    { provide: AuthService, useClass: AuthService },
+    { provide: 'API_ENDPOINT', useValue: 'http://api.example.com' },
+    { provide: 'API_URL', useExisting: 'API_ENDPOINT' },
+    {
+      provide: 'some-token',
+      useFactory: function () {
+        return Math.random();
+      }
+    },
+    // {provide: 'API_URL', useValue: 'abc.com'},
+    // {provide: 'API_URL', useExisting: 'api.com'}
+    { provide: GalleryConfig, useValue: 2 }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
