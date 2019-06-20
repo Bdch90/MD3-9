@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -16,7 +17,8 @@ import { GalleryConfig } from './image-gallery/token';
     BrowserModule,
     ImgSliderModule,
     ImageGalleryModule,
-    ContentProjectionModule
+    ContentProjectionModule,
+    AppRoutingModule
   ],
   // providers: [AuthService],
   providers: [
@@ -25,12 +27,11 @@ import { GalleryConfig } from './image-gallery/token';
     { provide: 'API_URL', useExisting: 'API_ENDPOINT' },
     {
       provide: 'some-token',
-      useFactory: function () {
+      useFactory() {
         return Math.random();
       }
     },
-    // {provide: 'API_URL', useValue: 'abc.com'},
-    // {provide: 'API_URL', useExisting: 'api.com'}
+
     { provide: GalleryConfig, useValue: 2 }
   ],
   bootstrap: [AppComponent]
